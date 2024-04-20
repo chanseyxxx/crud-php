@@ -29,6 +29,10 @@ echo "Olá " . $_SESSION["name"];
         header("location: entrar.php");
     }
     
+    if (isset($_POST["uptade"])) {
+        header("location: update.php");
+    }
+    
     if (isset($_POST["delete"])) {
         $email = $_SESSION["email"];
         $sql = "DELETE FROM users WHERE email = ?";
