@@ -12,7 +12,7 @@ echo "Olá " . $_SESSION["name"];
     <title>Document</title>
 </head>
 <body>
-    <form action="teste.php" method="post">
+    <form action="update.php" method="post">
         <input type="submit" name="update" value="atualizar">
     </form>
     <form action="teste.php" method="post">

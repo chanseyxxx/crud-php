@@ -57,6 +57,7 @@
                     mysqli_stmt_bind_param($stmt, "sss", $name , $email, $password_hash);
                     if (mysqli_stmt_execute($stmt)) {
                     $_SESSION["name"] = $_POST["name"];
+                    $_SESSION["email"] = $_POST["email"];
                     header("Location: teste.php");
                     exit();
                     

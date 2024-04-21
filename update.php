@@ -12,6 +12,7 @@
 <body>
     <h1>Mude seus dados aqui</h1>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
         <div class="mb-3">
             <label class="form-label">Nome</label>
             <input type="text" name="name" required>
@@ -36,7 +37,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_SPECIAL_CHARS);
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $password = !empty($_POST["password"]) ? password_hash($_POST["password"], PASSWORD_DEFAULT) : '';
 
     if (empty($name)) {
         echo "Digite um nome";
@@ -45,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (empty($password)) {
         echo "Digite uma senha";
     } else {
-        $sql = "UPDATE users SET nome = ?, senha = ?, email = ? WHERE email = ?";
-        $stmt = mysqli_prepare($db_connection, $sql);
+        $sql = "UPDATE users SET name = ?, password = ?, email = ? WHERE email = ?";
+        $stmt = mysqli_prepare($db_conection, $sql);
         mysqli_stmt_bind_param($stmt, "ssss", $name, $password, $email, $_SESSION["email"]);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        mysqli_close($db_connection);
+        mysqli_close($db_conection);
         header("location: teste.php");
         exit;
     }
